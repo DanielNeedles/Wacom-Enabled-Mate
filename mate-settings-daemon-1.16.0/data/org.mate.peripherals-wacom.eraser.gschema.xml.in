@@ -1,0 +1,19 @@
+<schemalist gettext-domain="@GETTEXT_PACKAGE@">
+  <schema id="org.mate.peripherals-wacom.eraser" path="/org/mate/desktop/peripherals/wacom/eraser/">
+    <key name="pressurecurve" type="ai">
+      <default>[0, 0, 100, 100]</default>
+      <summary>Wacom eraser pressure curve</summary>
+      <description>Set this to x1, y1 and x2, y2 of the pressure curve applied to the eraser.</description>
+    </key>
+    <key name="buttonmapping" type="ai">
+      <default>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]</default>
+      <summary>Wacom eraser button mapping</summary>
+      <description>Set this to the logical button mapping.</description>
+    </key>
+    <key name="pressurethreshold" type="i">
+      <default>-1</default>
+      <summary>Wacom eraser pressure threshold</summary>
+      <description>Set this to the pressure value at which an eraser click event is generated.</description>
+    </key>
+  </schema>
+</schemalist>
