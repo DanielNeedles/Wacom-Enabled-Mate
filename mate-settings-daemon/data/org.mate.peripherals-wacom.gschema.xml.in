@@ -1,0 +1,45 @@
+<schemalist gettext-domain="@GETTEXT_PACKAGE@">
+  <schema id="org.mate.peripherals-wacom" path="/org/mate/desktop/peripherals/wacom/">
+    <key name="active" type="b">
+      <default>true</default>
+      <summary>Activation of this plugin</summary>
+      <description>Whether this plugin would be activated by gnome-settings-daemon or not</description>
+    </key>
+    <key name="priority" type="i">
+      <default>0</default>
+      <summary>Priority to use for this plugin</summary>
+      <description>Priority to use for this plugin in gnome-settings-daemon startup queue</description>
+    </key>
+    <!-- is-absolute applies to all tools but PAD, CURSOR is hard-coded -->
+    <key name="is-absolute" type="b">
+      <default>true</default>
+      <summary>Wacom stylus absolute mode</summary>
+      <description>Enable this to set the tablet to absolute mode.</description>
+    </key>
+    <key name="area" type="ai">
+      <default>[-1, -1, -1, -1]</default>
+      <summary>Wacom tablet area</summary>
+      <description>Set this to x1, y1 and x2, y2 of the area usable by the tools.</description>
+    </key>
+    <key name="keep-aspect" type="b">
+      <default>false</default>
+      <summary>Wacom tablet aspect ratio</summary>
+      <description>Enable this to restrict the Wacom tablet area to match the aspect ratio of the output.</description>
+    </key>
+    <key name="rotation" type="s">
+      <default>'none'</default>
+      <summary>Wacom tablet rotation</summary>
+      <description>Set this to 'none', 'cw' for 90 degree clockwise, 'half' for 180 degree, and 'ccw' for 90 degree counterclockwise.</description>
+    </key>
+    <key name="touch" type="b">
+      <default>true</default>
+      <summary>Wacom touch feature</summary>
+      <description>Enable this to move the cursor when the user touches the tablet.</description>
+    </key>
+    <key name="display" type="as">
+      <default>["", "", ""]</default>
+      <summary>Wacom display mapping</summary>
+      <description>EDID information of monitor to map tablet to. Must be in the format [vendor, product, serial]. ["","",""] disables mapping.</description>
+    </key>
+  </schema>
+</schemalist>

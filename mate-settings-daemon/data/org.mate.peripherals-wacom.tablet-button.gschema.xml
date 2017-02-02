@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="@GETTEXT_PACKAGE@">
+  <schema path="/org/mate/desktop/peripherals/wacom/tablet-button/" id="org.mate.peripherals-wacom.tablet-button">
+    <key name="action-type" type="s">
+      <default>'none'</default>
+      <summary>Wacom button action type</summary>
+      <description>The type of action triggered by the button being pressed.</description>
+    </key>
+    <key type="s" name="custom-action">
+      <default>''</default>
+      <summary>Key combination for the custom action</summary>
+      <description>The keyboard shortcut generated when the button is pressed for custom actions.</description>
+    </key>
+    <key type="as" name="custom-elevator-action">
+      <default>['', '']</default>
+      <summary>Key combinations for a touchring or touchstrip custom action</summary>
+      <description>The keyboard shortcuts generated when a touchring or touchstrip is used for custom actions (up followed by down).</description>
+    </key>
+    <key type="s" name="oled-label">
+      <default>''</default>
+      
+      <summary>Button label for OLED display.</summary>
+      <description>Label will be rendered to OLED display belonging to the button</description>
+    </key>
+  </schema>
+</schemalist>
