@@ -1,0 +1,17 @@
+[Desktop Entry]
+_Name=Wacom Tablet
+_Comment=Set button mappings and adjust stylus sensitivity for graphics tablets
+Exec=mate-control-center wacom
+Icon=input-tablet
+Terminal=false
+Type=Application
+NoDisplay=true
+StartupNotify=true
+Categories=MATE;GTK;Settings;HardwareSettings;X-MATE-Settings-Panel;
+OnlyShowIn=MATE;Unity;
+X-MATE-Bugzilla-Bugzilla=MATE
+X-MATE-Bugzilla-Product=mate-control-center
+X-MATE-Bugzilla-Component=wacom
+X-MATE-Bugzilla-Version=@VERSION@
+# Translators: those are keywords for the wacom tablet control-center panel
+_Keywords=Tablet;Wacom;Stylus;Eraser;Mouse;
