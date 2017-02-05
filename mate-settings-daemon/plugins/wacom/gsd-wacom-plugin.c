@@ -23,7 +23,7 @@
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
 
-#include "gnome-settings-plugin.h"
+#include "../../mate-settings-daemon/mate-settings-plugin.h"
 #include "gsd-wacom-manager.h"
 
-GNOME_SETTINGS_PLUGIN_REGISTER (GsdWacom, gsd_wacom)
+GNOME_SETTINGS_PLUGIN_REGISTER (GsdWacom, gsd_wacom);
