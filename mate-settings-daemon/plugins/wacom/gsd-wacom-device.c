@@ -26,8 +26,8 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <X11/Xatom.h>
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
+#define MATE_DESKTOP_USE_UNSTABLE_API
+#include <libmate-desktop/mate-rr.h>
 
 #include <libwacom/libwacom.h>
 #include <X11/extensions/XInput.h>
@@ -40,21 +40,21 @@
 
 #define GSD_WACOM_STYLUS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GSD_TYPE_WACOM_STYLUS, GsdWacomStylusPrivate))
 
-#define WACOM_TABLET_SCHEMA "org.gnome.settings-daemon.peripherals.wacom"
-#define WACOM_DEVICE_CONFIG_BASE "/org/gnome/settings-daemon/peripherals/wacom/%s-%s/"
-#define WACOM_STYLUS_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.stylus"
-#define WACOM_ERASER_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.eraser"
-#define WACOM_BUTTON_SCHEMA "org.gnome.settings-daemon.peripherals.wacom.tablet-button"
+#define WACOM_TABLET_SCHEMA "org.mate.settings-daemon.peripherals.wacom"
+#define WACOM_DEVICE_CONFIG_BASE "/org/mate/settings-daemon/peripherals/wacom/%s-%s/"
+#define WACOM_STYLUS_SCHEMA "org.mate.settings-daemon.peripherals.wacom.stylus"
+#define WACOM_ERASER_SCHEMA "org.mate.settings-daemon.peripherals.wacom.eraser"
+#define WACOM_BUTTON_SCHEMA "org.mate.settings-daemon.peripherals.wacom.tablet-button"
 
 static struct {
-	GnomeRRRotation  rotation;
+	MateRRRotation  rotation;
 	GsdWacomRotation rotation_wacom;
 	const gchar     *rotation_string;
 } rotation_table[] = {
-	{ GNOME_RR_ROTATION_0,   GSD_WACOM_ROTATION_NONE, "none" },
-	{ GNOME_RR_ROTATION_90,  GSD_WACOM_ROTATION_CCW,  "ccw"  },
-	{ GNOME_RR_ROTATION_180, GSD_WACOM_ROTATION_HALF, "half" },
-	{ GNOME_RR_ROTATION_270, GSD_WACOM_ROTATION_CW,   "cw"   }
+	{ MATE_RR_ROTATION_0,   GSD_WACOM_ROTATION_NONE, "none" },
+	{ MATE_RR_ROTATION_90,  GSD_WACOM_ROTATION_CCW,  "ccw"  },
+	{ MATE_RR_ROTATION_180, GSD_WACOM_ROTATION_HALF, "half" },
+	{ MATE_RR_ROTATION_270, GSD_WACOM_ROTATION_CW,   "cw"   }
 };
 
 static WacomDeviceDatabase *db = NULL;
@@ -318,7 +318,7 @@ gsd_wacom_tablet_button_copy (GsdWacomTabletButton *button)
  * Tablet-wide settings: applied to each tool on the tablet. e.g. rotation
  * Tool-specific settings: applied to one tool only.
  */
-#define SETTINGS_WACOM_DIR         "org.gnome.settings-daemon.peripherals.wacom"
+#define SETTINGS_WACOM_DIR         "org.mate.settings-daemon.peripherals.wacom"
 #define SETTINGS_STYLUS_DIR        "stylus"
 #define SETTINGS_ERASER_DIR        "eraser"
 
@@ -513,14 +513,14 @@ get_device_type (XDeviceInfo *dev)
 
 /* Finds an output which matches the given EDID information. Any NULL
  * parameter will be interpreted to match any value. */
-static GnomeRROutput *
-find_output_by_edid (GnomeRRScreen *rr_screen, const gchar *vendor, const gchar *product, const gchar *serial)
+static MateRROutput *
+find_output_by_edid (MateRRScreen *rr_screen, const gchar *vendor, const gchar *product, const gchar *serial)
 {
-	GnomeRROutput **rr_outputs;
-	GnomeRROutput *retval = NULL;
+	MateRROutput **rr_outputs;
+	MateRROutput *retval = NULL;
 	guint i;
 
-	rr_outputs = gnome_rr_screen_list_outputs (rr_screen);
+	rr_outputs = mate_rr_screen_list_outputs (rr_screen);
 
 	for (i = 0; rr_outputs[i] != NULL; i++) {
 		gchar *o_vendor;
@@ -528,7 +528,7 @@ find_output_by_edid (GnomeRRScreen *rr_screen, const gchar *vendor, const gchar 
 		gchar *o_serial;
 		gboolean match;
 
-		gnome_rr_output_get_ids_from_edid (rr_outputs[i],
+		mate_rr_output_get_ids_from_edid (rr_outputs[i],
 						   &o_vendor,
 						   &o_product,
 						   &o_serial);
@@ -557,16 +557,16 @@ find_output_by_edid (GnomeRRScreen *rr_screen, const gchar *vendor, const gchar 
 	return retval;
 }
 
-static GnomeRROutput*
-find_builtin_output (GnomeRRScreen *rr_screen)
+static MateRROutput*
+find_builtin_output (MateRRScreen *rr_screen)
 {
-	GnomeRROutput **rr_outputs;
-	GnomeRROutput *retval = NULL;
+	MateRROutput **rr_outputs;
+	MateRROutput *retval = NULL;
 	guint i;
 
-	rr_outputs = gnome_rr_screen_list_outputs (rr_screen);
+	rr_outputs = mate_rr_screen_list_outputs (rr_screen);
 	for (i = 0; rr_outputs[i] != NULL; i++) {
-		if (gnome_rr_output_is_builtin_display(rr_outputs[i])) {
+		if (mate_rr_output_is_builtin_display(rr_outputs[i])) {
 			retval = rr_outputs[i];
 			break;
 		}
@@ -578,10 +578,10 @@ find_builtin_output (GnomeRRScreen *rr_screen)
 	return retval;
 }
 
-static GnomeRROutput *
-find_output_by_heuristic (GnomeRRScreen *rr_screen, GsdWacomDevice *device)
+static MateRROutput *
+find_output_by_heuristic (MateRRScreen *rr_screen, GsdWacomDevice *device)
 {
-	GnomeRROutput *rr_output;
+	MateRROutput *rr_output;
 
 	/* TODO: This heuristic will fail for non-Wacom display
 	 * tablets and may give the wrong result if multiple Wacom
@@ -595,14 +595,14 @@ find_output_by_heuristic (GnomeRRScreen *rr_screen, GsdWacomDevice *device)
 	return rr_output;
 }
 
-static GnomeRROutput *
-find_output_by_display (GnomeRRScreen *rr_screen, GsdWacomDevice *device)
+static MateRROutput *
+find_output_by_display (MateRRScreen *rr_screen, GsdWacomDevice *device)
 {
 	gsize n;
 	GSettings *tablet;
 	GVariant *display;
 	const gchar **edid;
-	GnomeRROutput *ret;
+	MateRROutput *ret;
 
 	if (device == NULL)
 		return NULL;
@@ -630,32 +630,32 @@ out:
 }
 
 static gboolean
-is_on (GnomeRROutput *output)
+is_on (MateRROutput *output)
 {
-	GnomeRRCrtc *crtc;
+	MateRRCrtc *crtc;
 
-	crtc = gnome_rr_output_get_crtc (output);
+	crtc = mate_rr_output_get_crtc (output);
 	if (!crtc)
 		return FALSE;
-	return gnome_rr_crtc_get_current_mode (crtc) != NULL;
+	return mate_rr_crtc_get_current_mode (crtc) != NULL;
 }
 
-static GnomeRROutput *
-find_output_by_monitor (GnomeRRScreen *rr_screen,
+static MateRROutput *
+find_output_by_monitor (MateRRScreen *rr_screen,
 			GdkScreen     *screen,
 			int            monitor)
 {
-	GnomeRROutput **rr_outputs;
-	GnomeRROutput *ret;
+	MateRROutput **rr_outputs;
+	MateRROutput *ret;
 	guint i;
 
 	ret = NULL;
 
-	rr_outputs = gnome_rr_screen_list_outputs (rr_screen);
+	rr_outputs = mate_rr_screen_list_outputs (rr_screen);
 
 	for (i = 0; rr_outputs[i] != NULL; i++) {
-		GnomeRROutput *rr_output;
-		GnomeRRCrtc *crtc;
+		MateRROutput *rr_output;
+		MateRRCrtc *crtc;
 		int x, y;
 
 		rr_output = rr_outputs[i];
@@ -663,11 +663,11 @@ find_output_by_monitor (GnomeRRScreen *rr_screen,
 		if (!is_on (rr_output))
 			continue;
 
-		crtc = gnome_rr_output_get_crtc (rr_output);
+		crtc = mate_rr_output_get_crtc (rr_output);
 		if (!crtc)
 			continue;
 
-		gnome_rr_crtc_get_position (crtc, &x, &y);
+		mate_rr_crtc_get_position (crtc, &x, &y);
 
 		if (monitor == gdk_screen_get_monitor_at_point (screen, x, y)) {
 			ret = rr_output;
@@ -683,7 +683,7 @@ find_output_by_monitor (GnomeRRScreen *rr_screen,
 
 static void
 set_display_by_output (GsdWacomDevice  *device,
-                       GnomeRROutput   *rr_output)
+                       MateRROutput   *rr_output)
 {
 	GSettings   *tablet;
 	GVariant    *c_array;
@@ -705,7 +705,7 @@ set_display_by_output (GsdWacomDevice  *device,
 	  o_product = g_strdup ("");
 	  o_serial  = g_strdup ("");
 	} else {
-	  gnome_rr_output_get_ids_from_edid (rr_output,
+	  mate_rr_output_get_ids_from_edid (rr_output,
 					     &o_vendor,
 					     &o_product,
 					     &o_serial);
@@ -723,7 +723,7 @@ set_display_by_output (GsdWacomDevice  *device,
 }
 
 static GsdWacomRotation
-get_rotation_wacom (GnomeRRRotation rotation)
+get_rotation_wacom (MateRRRotation rotation)
 {
         guint i;
 
@@ -739,14 +739,14 @@ gsd_wacom_device_set_display (GsdWacomDevice *device,
                               int             monitor)
 {
 	GError *error = NULL;
-	GnomeRRScreen *rr_screen;
-	GnomeRROutput *output = NULL;
+	MateRRScreen *rr_screen;
+	MateRROutput *output = NULL;
 
         g_return_if_fail (GSD_IS_WACOM_DEVICE (device));
 
-	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
+	rr_screen = mate_rr_screen_new (gdk_screen_get_default (), &error);
 	if (rr_screen == NULL) {
-		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
+		g_warning ("Failed to create MateRRScreen: %s", error->message);
 		g_error_free (error);
 		return;
 	}
@@ -758,11 +758,11 @@ gsd_wacom_device_set_display (GsdWacomDevice *device,
 	g_object_unref (rr_screen);
 }
 
-static GnomeRROutput *
-find_output (GnomeRRScreen  *rr_screen,
+static MateRROutput *
+find_output (MateRRScreen  *rr_screen,
 	     GsdWacomDevice *device)
 {
-	GnomeRROutput *rr_output;
+	MateRROutput *rr_output;
 	rr_output = find_output_by_display (rr_screen, device);
 
 	if (rr_output == NULL) {
@@ -810,17 +810,17 @@ int
 gsd_wacom_device_get_display_monitor (GsdWacomDevice *device)
 {
 	GError *error = NULL;
-	GnomeRRScreen *rr_screen;
-	GnomeRROutput *rr_output;
-	GnomeRRMode *mode;
-	GnomeRRCrtc *crtc;
+	MateRRScreen *rr_screen;
+	MateRROutput *rr_output;
+	MateRRMode *mode;
+	MateRRCrtc *crtc;
 	gint area[4];
 
         g_return_val_if_fail (GSD_IS_WACOM_DEVICE (device), GSD_WACOM_SET_ALL_MONITORS);
 
-	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
+	rr_screen = mate_rr_screen_new (gdk_screen_get_default (), &error);
 	if (rr_screen == NULL) {
-		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
+		g_warning ("Failed to create MateRRScreen: %s", error->message);
 		g_error_free (error);
 		return GSD_WACOM_SET_ALL_MONITORS;
 	}
@@ -837,12 +837,12 @@ gsd_wacom_device_get_display_monitor (GsdWacomDevice *device)
 		return GSD_WACOM_SET_ALL_MONITORS;
 	}
 
-	crtc = gnome_rr_output_get_crtc (rr_output);
-	gnome_rr_crtc_get_position (crtc, &area[0], &area[1]);
+	crtc = mate_rr_output_get_crtc (rr_output);
+	mate_rr_crtc_get_position (crtc, &area[0], &area[1]);
 
-	mode = gnome_rr_crtc_get_current_mode (crtc);
-	area[2] = gnome_rr_mode_get_width (mode);
-	area[3] = gnome_rr_mode_get_height (mode);
+	mode = mate_rr_crtc_get_current_mode (crtc);
+	area[2] = mate_rr_mode_get_width (mode);
+	area[3] = mate_rr_mode_get_height (mode);
 
 	g_object_unref (rr_screen);
 
@@ -891,22 +891,22 @@ GsdWacomRotation
 gsd_wacom_device_get_display_rotation (GsdWacomDevice *device)
 {
 	GError *error = NULL;
-	GnomeRRScreen *rr_screen;
-	GnomeRROutput *rr_output;
-	GnomeRRRotation rotation = GNOME_RR_ROTATION_0;
+	MateRRScreen *rr_screen;
+	MateRROutput *rr_output;
+	MateRRRotation rotation = MATE_RR_ROTATION_0;
 
-	rr_screen = gnome_rr_screen_new (gdk_screen_get_default (), &error);
+	rr_screen = mate_rr_screen_new (gdk_screen_get_default (), &error);
 	if (rr_screen == NULL) {
-		g_warning ("Failed to create GnomeRRScreen: %s", error->message);
+		g_warning ("Failed to create MateRRScreen: %s", error->message);
 		g_error_free (error);
 		return GSD_WACOM_ROTATION_NONE;
 	}
 
 	rr_output = find_output (rr_screen, device);
 	if (rr_output) {
-		GnomeRRCrtc *crtc = gnome_rr_output_get_crtc (rr_output);
+		MateRRCrtc *crtc = mate_rr_output_get_crtc (rr_output);
 		if (crtc)
-			rotation = gnome_rr_crtc_get_current_rotation (crtc);
+			rotation = mate_rr_crtc_get_current_rotation (crtc);
 	}
 	g_object_unref (rr_screen);
 
@@ -1608,7 +1608,7 @@ gsd_wacom_device_init (GsdWacomDevice *device)
         device->priv = GSD_WACOM_DEVICE_GET_PRIVATE (device);
         device->priv->type = WACOM_TYPE_INVALID;
 
-        per_user_config = g_build_filename (g_get_user_config_dir (), "gnome-settings-daemon", "no-per-machine-config", NULL);
+        per_user_config = g_build_filename (g_get_user_config_dir (), "mate-settings-daemon", "no-per-machine-config", NULL);
         if (g_file_test (per_user_config, G_FILE_TEST_EXISTS)) {
                 g_free (per_user_config);
                 goto fallback;

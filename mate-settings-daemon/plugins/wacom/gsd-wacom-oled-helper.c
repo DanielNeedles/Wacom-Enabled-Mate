@@ -358,7 +358,7 @@ int main (int argc, char **argv)
 	}
 
 	context = g_option_context_new (NULL);
-	g_option_context_set_summary (context, "GNOME Settings Daemon Wacom OLED Icon Helper");
+	g_option_context_set_summary (context, "MATE Settings Daemon Wacom OLED Icon Helper");
 	g_option_context_add_main_entries (context, options, NULL);
 	g_option_context_parse (context, &argc, &argv, NULL);
 

@@ -39,15 +39,15 @@
 #include <X11/extensions/XTest.h>
 #include <X11/keysym.h>
 #include <Xwacom.h>
-#define GNOME_DESKTOP_USE_UNSTABLE_API
-#include <libgnome-desktop/gnome-rr.h>
+#define MATE_DESKTOP_USE_UNSTABLE_API
+#include <libmate-desktop/mate-rr.h>
 
 #include "gsd-enums.h"
 #include "gsd-input-helper.h"
 #include "gsd-keygrab.h"
-#include "gnome-settings-plugin.h"
-#include "gnome-settings-profile.h"
-#include "gnome-settings-bus.h"
+#include "mate-settings-plugin.h"
+#include "mate-settings-profile.h"
+#include "mate-settings-bus.h"
 #include "gsd-wacom-manager.h"
 #include "gsd-wacom-device.h"
 #include "gsd-wacom-oled.h"
@@ -84,8 +84,8 @@
 #define GSD_WACOM_DBUS_NAME GSD_DBUS_NAME ".Wacom"
 
 static const gchar introspection_xml[] =
-"<node name='/org/gnome/SettingsDaemon/Wacom'>"
-"  <interface name='org.gnome.SettingsDaemon.Wacom'>"
+"<node name='/org/mate/SettingsDaemon/Wacom'>"
+"  <interface name='org.mate.SettingsDaemon.Wacom'>"
 "    <method name='SetOSDVisibility'>"
 "      <arg name='device_id' direction='in' type='u'/>"
 "      <arg name='visible' direction='in' type='b'/>"
@@ -101,7 +101,7 @@ struct GsdWacomManagerPrivate
         guint device_added_id;
         guint device_removed_id;
         GHashTable *devices; /* key = GdkDevice, value = GsdWacomDevice */
-        GnomeRRScreen *rr_screen;
+        MateRRScreen *rr_screen;
         GHashTable *warned_devices;
 
         GsdShell *shell_proxy;
@@ -1318,7 +1318,7 @@ notify_osd_for_device (GsdWacomManager *manager,
                 return;
 
         if (manager->priv->shell_proxy == NULL)
-                manager->priv->shell_proxy = gnome_settings_bus_get_shell_proxy ();
+                manager->priv->shell_proxy = mate_settings_bus_get_shell_proxy ();
 
         shell_show_osd (manager->priv->shell_proxy,
                         "input-tablet-symbolic",
@@ -1487,7 +1487,7 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
 {
 	GList *devices, *l;
 
-        gnome_settings_profile_start (NULL);
+        mate_settings_profile_start (NULL);
 
         manager->priv->device_mapper = gsd_device_mapper_get ();
 
@@ -1507,7 +1507,7 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
                                (GdkFilterFunc) filter_button_events,
                                manager);
 
-        gnome_settings_profile_end (NULL);
+        mate_settings_profile_end (NULL);
 
         manager->priv->start_idle_id = 0;
 
@@ -1519,7 +1519,7 @@ gsd_wacom_manager_idle_cb (GsdWacomManager *manager)
  * position of the monitors attached to the screen change.
  */
 static void
-on_screen_changed_cb (GnomeRRScreen *rr_screen,
+on_screen_changed_cb (MateRRScreen *rr_screen,
 		      GsdWacomManager *manager)
 {
 	GList *devices, *l;
@@ -1564,9 +1564,9 @@ on_rr_screen_acquired (GObject      *object,
         GsdWacomManager *manager = user_data;
         GError *error = NULL;
 
-        manager->priv->rr_screen = gnome_rr_screen_new_finish (result, &error);
+        manager->priv->rr_screen = mate_rr_screen_new_finish (result, &error);
         if (manager->priv->rr_screen == NULL) {
-                g_warning ("Failed to create GnomeRRScreen: %s", error->message);
+                g_warning ("Failed to create MateRRScreen: %s", error->message);
                 g_error_free (error);
                 return;
         }
@@ -1589,10 +1589,10 @@ init_screen (GsdWacomManager *manager)
         manager->priv->screen = screen;
 
         /*
-         * We keep GnomeRRScreen to monitor changes such as rotation
+         * We keep MateRRScreen to monitor changes such as rotation
          * which are not reported by Gdk's "monitors-changed" callback
          */
-        gnome_rr_screen_new_async (screen, on_rr_screen_acquired, manager);
+        mate_rr_screen_new_async (screen, on_rr_screen_acquired, manager);
 }
 
 static void
@@ -1656,7 +1656,7 @@ gboolean
 gsd_wacom_manager_start (GsdWacomManager *manager,
                          GError         **error)
 {
-        gnome_settings_profile_start (NULL);
+        mate_settings_profile_start (NULL);
 
         if (supports_xinput2_devices (&manager->priv->opcode) == FALSE) {
                 g_debug ("No Xinput2 support, disabling plugin");
@@ -1672,9 +1672,9 @@ gsd_wacom_manager_start (GsdWacomManager *manager,
         register_manager (manager_object);
 
         manager->priv->start_idle_id = g_idle_add ((GSourceFunc) gsd_wacom_manager_idle_cb, manager);
-        g_source_set_name_by_id (manager->priv->start_idle_id, "[gnome-settings-daemon] gsd_wacom_manager_idle_cb");
+        g_source_set_name_by_id (manager->priv->start_idle_id, "[mate-settings-daemon] gsd_wacom_manager_idle_cb");
 
-        gnome_settings_profile_end (NULL);
+        mate_settings_profile_end (NULL);
 
         return TRUE;
 }

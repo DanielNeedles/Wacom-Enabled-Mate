@@ -153,7 +153,7 @@ am_gsd_list_wacom_OBJECTS = gsd_list_wacom-list-wacom.$(OBJEXT) \
 	gsd_list_wacom-gsd-wacom-device.$(OBJEXT)
 gsd_list_wacom_OBJECTS = $(am_gsd_list_wacom_OBJECTS)
 gsd_list_wacom_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/mate-settings-daemon/libgsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 gsd_list_wacom_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
@@ -170,7 +170,7 @@ am_gsd_test_wacom_OBJECTS = gsd_test_wacom-test-wacom.$(OBJEXT) \
 	gsd_test_wacom-gsd-wacom-resources.$(OBJEXT)
 gsd_test_wacom_OBJECTS = $(am_gsd_test_wacom_OBJECTS)
 gsd_test_wacom_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/mate-settings-daemon/libgsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 gsd_test_wacom_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
@@ -186,7 +186,7 @@ am_gsd_test_wacom_osd_OBJECTS =  \
 	gsd_test_wacom_osd-gsd-wacom-resources.$(OBJEXT)
 gsd_test_wacom_osd_OBJECTS = $(am_gsd_test_wacom_osd_OBJECTS)
 gsd_test_wacom_osd_DEPENDENCIES =  \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la \
+	$(top_builddir)/mate-settings-daemon/libgsd.la \
 	$(top_builddir)/plugins/common/libcommon.la \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 gsd_test_wacom_osd_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
@@ -257,14 +257,14 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0/missing aclocal-1.13
+ACLOCAL = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon/missing aclocal-1.13
 ALL_LINGUAS = 
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 0
 AR = ar
-AUTOCONF = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0/missing autoconf
-AUTOHEADER = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0/missing autoheader
-AUTOMAKE = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0/missing automake-1.13
+AUTOCONF = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon/missing autoconf
+AUTOHEADER = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon/missing autoheader
+AUTOMAKE = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon/missing automake-1.13
 AWK = gawk
 CATALOGS = 
 CATOBJEXT = .gmo
@@ -344,7 +344,7 @@ LIPO =
 LN_S = ln -s
 LTLIBOBJS = 
 MAINT = 
-MAKEINFO = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0/missing makeinfo
+MAKEINFO = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon/missing makeinfo
 MANIFEST_TOOL = :
 MATE_DESKTOP_CFLAGS = -pthread -I/usr/include/mate-desktop-2.0 -I/usr/include/dconf -I/usr/include/gtk-2.0 -I/usr/include/startup-notification-1.0 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/lib64/gtk-2.0/include -I/usr/include/atk-1.0 -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/pango-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng15 -I/usr/include/libdrm -I/usr/include/harfbuzz  
 MATE_DESKTOP_LIBS = -lmate-desktop-2 -lgtk-x11-2.0 -lstartup-notification-1 -lgdk-x11-2.0 -latk-1.0 -lgio-2.0 -lpangoft2-1.0 -lpangocairo-1.0 -lgdk_pixbuf-2.0 -lcairo -lpango-1.0 -lfontconfig -lgobject-2.0 -lglib-2.0 -lfreetype  
@@ -375,7 +375,7 @@ PACKAGE_VERSION = 1.16.0
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
-PKG_CONFIG_PATH = /usr/local/lib/pkgconfig/:/usr/local/share/pkgconfig/:/usr/lib/pkgconfig
+PKG_CONFIG_PATH = 
 POFILES = 
 POLKIT_CFLAGS = -pthread -I/usr/include/polkit-1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include  
 POLKIT_LIBS = -L/lib64 -lpolkit-gobject-1 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -ldbus-1  
@@ -405,10 +405,10 @@ X_CFLAGS =
 X_EXTRA_LIBS = 
 X_LIBS = 
 X_PRE_LIBS =  -lSM -lICE
-abs_builddir = /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0/plugins/wacom
-abs_srcdir = /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0/plugins/wacom
-abs_top_builddir = /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0
-abs_top_srcdir = /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0
+abs_builddir = /home/dneedles/PROJECT2/CODE/mate-settings-daemon/plugins/wacom
+abs_srcdir = /home/dneedles/PROJECT2/CODE/mate-settings-daemon/plugins/wacom
+abs_top_builddir = /home/dneedles/PROJECT2/CODE/mate-settings-daemon
+abs_top_srcdir = /home/dneedles/PROJECT2/CODE/mate-settings-daemon
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = 
@@ -439,7 +439,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon-1.16.0/install-sh
+install_sh = ${SHELL} /home/dneedles/PROJECT2/CODE/mate-settings-daemon/install-sh
 intltool__v_merge_options_ = $(intltool__v_merge_options_$(AM_DEFAULT_VERBOSITY))
 intltool__v_merge_options_0 = -q
 libdir = ${exec_prefix}/lib
@@ -482,11 +482,11 @@ libgsdwacom_la_SOURCES = \
 	gsd-wacom-resources.c
 
 libgsdwacom_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_builddir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/mate-settings-daemon		\
+	-I$(top_builddir)/mate-settings-daemon		\
 	-I$(top_srcdir)/plugins/common/			\
 	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DMATE_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
 	$(AM_CPPFLAGS)
 
@@ -505,7 +505,7 @@ libgsdwacom_la_LIBADD = \
 	$(WACOM_LIBS)
 
 polkit_policydir = $(datadir)/polkit-1/actions
-polkit_policy_in_files = org.gnome.settings-daemon.plugins.wacom.policy.in
+polkit_policy_in_files = org.mate.settings-daemon.plugins.wacom.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
@@ -514,7 +514,7 @@ gsd_wacom_oled_helper_SOURCES = gsd-wacom-oled-helper.c gsd-wacom-oled-constants
 # endif
 EXTRA_DIST = $(gsd_wacom_led_helper_SOURCES) wacom.gresource.xml \
 	tablet-layout.css $(gsd_wacom_oled_helper_SOURCES) \
-	org.gnome.settings-daemon.plugins.wacom.policy.in.in \
+	org.mate.settings-daemon.plugins.wacom.policy.in.in \
 	$(plugin_in_files) README.config-storage
 gsd_test_wacom_SOURCES = \
 	test-wacom.c		\
@@ -534,13 +534,13 @@ gsd_test_wacom_SOURCES = \
 
 gsd_test_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/mate-settings-daemon			\
+	-I$(top_builddir)/mate-settings-daemon		\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DMATE_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	-DSCHEMA_NAME=\""gsdwacom"\"				\
 	$(AM_CPPFLAGS)
@@ -552,7 +552,7 @@ gsd_test_wacom_CFLAGS = \
 	$(AM_CFLAGS)
 
 gsd_test_wacom_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/mate-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
@@ -566,13 +566,13 @@ gsd_list_wacom_SOURCES = \
 
 gsd_list_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/mate-settings-daemon			\
+	-I$(top_builddir)/mate-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DMATE_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 gsd_list_wacom_CFLAGS = \
@@ -581,7 +581,7 @@ gsd_list_wacom_CFLAGS = \
 	$(AM_CFLAGS)
 
 gsd_list_wacom_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/mate-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
@@ -602,13 +602,13 @@ gsd_test_wacom_osd_SOURCES = \
 
 gsd_test_wacom_osd_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/mate-settings-daemon			\
+	-I$(top_builddir)/mate-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DMATE_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
@@ -618,20 +618,20 @@ gsd_test_wacom_osd_CFLAGS = \
 	$(AM_CFLAGS)
 
 gsd_test_wacom_osd_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/mate-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(WACOM_LIBS)						\
 	-lm
 
-plugin_in_files = wacom.gnome-settings-plugin.in
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_in_files = wacom.mate-settings-plugin.in
+plugin_DATA = $(plugin_in_files:.mate-settings-plugin.in=.mate-settings-plugin)
 CLEANFILES = \
 	$(plugin_DATA)					\
 	gsd-wacom-resources.c				\
-	org.gnome.settings-daemon.plugins.wacom.policy	\
-	org.gnome.settings-daemon.plugins.wacom.policy.in
+	org.mate.settings-daemon.plugins.wacom.policy	\
+	org.mate.settings-daemon.plugins.wacom.policy.in
 
 all: all-am
 
@@ -1360,7 +1360,7 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-pluginDATA \
 	uninstall-pluginLTLIBRARIES uninstall-polkit_policyDATA
 
 
-org.gnome.settings-daemon.plugins.wacom.policy.in: org.gnome.settings-daemon.plugins.wacom.policy.in.in Makefile
+org.mate.settings-daemon.plugins.wacom.policy.in: org.mate.settings-daemon.plugins.wacom.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 gsd-wacom-resources.c: wacom.gresource.xml tablet-layout.css

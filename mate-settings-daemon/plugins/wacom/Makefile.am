@@ -20,11 +20,11 @@ libgsdwacom_la_SOURCES =	\
 	gsd-wacom-resources.c
 
 libgsdwacom_la_CPPFLAGS = \
-	-I$(top_srcdir)/gnome-settings-daemon		\
-	-I$(top_builddir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/mate-settings-daemon		\
+	-I$(top_builddir)/mate-settings-daemon		\
 	-I$(top_srcdir)/plugins/common/			\
 	-I$(top_srcdir)/data/				\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
+	-DMATE_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\" \
 	-DLIBEXECDIR=\""$(libexecdir)"\" 		\
 	$(AM_CPPFLAGS)
 
@@ -42,7 +42,7 @@ libgsdwacom_la_LIBADD  =						\
 	$(SETTINGS_PLUGIN_LIBS)						\
 	$(WACOM_LIBS)
 
-org.gnome.settings-daemon.plugins.wacom.policy.in: org.gnome.settings-daemon.plugins.wacom.policy.in.in Makefile
+org.mate.settings-daemon.plugins.wacom.policy.in: org.mate.settings-daemon.plugins.wacom.policy.in.in Makefile
 	$(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" $< > $@
 
 gsd-wacom-resources.c: wacom.gresource.xml tablet-layout.css
@@ -55,7 +55,7 @@ gsd-wacom-resources.c: wacom.gresource.xml tablet-layout.css
 
 @INTLTOOL_POLICY_RULE@
 polkit_policydir = $(datadir)/polkit-1/actions
-polkit_policy_in_files = org.gnome.settings-daemon.plugins.wacom.policy.in
+polkit_policy_in_files = org.mate.settings-daemon.plugins.wacom.policy.in
 polkit_policy_DATA = $(polkit_policy_in_files:.policy.in=.policy)
 
 # so it always gets included in the tarball
@@ -85,7 +85,7 @@ EXTRA_DIST = $(gsd_wacom_led_helper_SOURCES) wacom.gresource.xml tablet-layout.c
 libexec_PROGRAMS =
 # endif
 
-EXTRA_DIST += org.gnome.settings-daemon.plugins.wacom.policy.in.in
+EXTRA_DIST += org.mate.settings-daemon.plugins.wacom.policy.in.in
 
 libexec_PROGRAMS += gsd-test-wacom gsd-list-wacom gsd-test-wacom-osd
 
@@ -107,13 +107,13 @@ gsd_test_wacom_SOURCES =	\
 
 gsd_test_wacom_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon		\
+	-I$(top_srcdir)/mate-settings-daemon			\
+	-I$(top_builddir)/mate-settings-daemon		\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DMATE_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	-DSCHEMA_NAME=\""gsdwacom"\"				\
 	$(AM_CPPFLAGS)
@@ -125,7 +125,7 @@ gsd_test_wacom_CFLAGS =			\
 	$(AM_CFLAGS)
 
 gsd_test_wacom_LDADD =						\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/mate-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
@@ -139,13 +139,13 @@ gsd_list_wacom_SOURCES =	\
 
 gsd_list_wacom_CPPFLAGS =					\
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/mate-settings-daemon			\
+	-I$(top_builddir)/mate-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DMATE_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	$(AM_CPPFLAGS)
 
 gsd_list_wacom_CFLAGS =			\
@@ -154,7 +154,7 @@ gsd_list_wacom_CFLAGS =			\
 	$(AM_CFLAGS)
 
 gsd_list_wacom_LDADD =						\
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/mate-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
@@ -175,13 +175,13 @@ gsd_test_wacom_osd_SOURCES =					\
 
 gsd_test_wacom_osd_CPPFLAGS = \
 	-I$(top_srcdir)/data/					\
-	-I$(top_srcdir)/gnome-settings-daemon			\
-	-I$(top_builddir)/gnome-settings-daemon			\
+	-I$(top_srcdir)/mate-settings-daemon			\
+	-I$(top_builddir)/mate-settings-daemon			\
 	-I$(top_srcdir)/plugins/common				\
 	-DBINDIR=\"$(bindir)\"					\
 	-DPIXMAPDIR=\""$(pkgdatadir)"\"				\
 	-DGTKBUILDERDIR=\""$(pkgdatadir)"\"			\
-	-DGNOME_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
+	-DMATE_SETTINGS_LOCALEDIR=\""$(datadir)/locale"\"	\
 	-DLIBEXECDIR=\""$(libexecdir)"\"			\
 	$(AM_CPPFLAGS)
 
@@ -191,22 +191,22 @@ gsd_test_wacom_osd_CFLAGS =					\
 	$(AM_CFLAGS)
 
 gsd_test_wacom_osd_LDADD = \
-	$(top_builddir)/gnome-settings-daemon/libgsd.la		\
+	$(top_builddir)/mate-settings-daemon/libgsd.la		\
 	$(top_builddir)/plugins/common/libcommon.la		\
 	$(SETTINGS_DAEMON_LIBS)					\
 	$(SETTINGS_PLUGIN_LIBS)					\
 	$(WACOM_LIBS)						\
 	-lm
 
-plugin_in_files = wacom.gnome-settings-plugin.in
+plugin_in_files = wacom.mate-settings-plugin.in
 
-plugin_DATA = $(plugin_in_files:.gnome-settings-plugin.in=.gnome-settings-plugin)
+plugin_DATA = $(plugin_in_files:.mate-settings-plugin.in=.mate-settings-plugin)
 
 EXTRA_DIST += $(plugin_in_files) README.config-storage
 CLEANFILES =						\
 	$(plugin_DATA)					\
 	gsd-wacom-resources.c				\
-	org.gnome.settings-daemon.plugins.wacom.policy	\
-	org.gnome.settings-daemon.plugins.wacom.policy.in
+	org.mate.settings-daemon.plugins.wacom.policy	\
+	org.mate.settings-daemon.plugins.wacom.policy.in
 
 @GSD_INTLTOOL_PLUGIN_RULE@
