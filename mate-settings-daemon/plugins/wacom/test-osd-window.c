@@ -25,11 +25,11 @@
 #include <string.h>
 #include <dirent.h>
 #include <glib/gi18n.h>
-#include "gsd-wacom-osd-window.h"
+#include "msd-wacom-osd-window.h"
 
 static gboolean option_debug = FALSE;
 
-static GsdWacomDevice *
+static MsdWacomDevice *
 search_pad_device (void)
 {
 	GdkDeviceManager *mgr;
@@ -38,10 +38,10 @@ search_pad_device (void)
 	mgr = gdk_display_get_device_manager (gdk_display_get_default ());
 	list = gdk_device_manager_list_devices (mgr, GDK_DEVICE_TYPE_SLAVE);
 	for (l = list; l ; l = l->next) {
-		GsdWacomDevice *device;
+		MsdWacomDevice *device;
 
-		device = gsd_wacom_device_new (l->data);
-		if (gsd_wacom_device_get_device_type (device) == WACOM_TYPE_PAD)
+		device = msd_wacom_device_new (l->data);
+		if (msd_wacom_device_get_device_type (device) == WACOM_TYPE_PAD)
 			return (device);
 		g_object_unref (device);
 	}
@@ -50,14 +50,14 @@ search_pad_device (void)
 	return NULL;
 }
 
-static GsdWacomDevice *
+static MsdWacomDevice *
 create_fake_device (const char *tablet)
 {
-	GsdWacomDevice *device;
+	MsdWacomDevice *device;
 	gchar *tool;
 
 	tool = g_strdup_printf ("%s pad", tablet);
-	device = gsd_wacom_device_create_fake (WACOM_TYPE_PAD, tablet, tool);
+	device = msd_wacom_device_create_fake (WACOM_TYPE_PAD, tablet, tool);
 	g_free (tool);
 
 	return device;
@@ -78,7 +78,7 @@ int main(int argc, char** argv)
 	GtkWidget *widget;
 	GError *error = NULL;
 	GOptionContext *context;
-	GsdWacomDevice *device;
+	MsdWacomDevice *device;
 	gchar *message;
 	gchar *tablet = NULL;
 	const GOptionEntry entries[] = {
@@ -112,14 +112,14 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	if (gsd_wacom_device_get_layout_path (device) == NULL) {
+	if (msd_wacom_device_get_layout_path (device) == NULL) {
 		g_print ("This device has not layout available in libwacom\n");
 		return 1;
 	}
 
 	message = g_strdup_printf ("<big><b>%s</b></big>\n<i>(Press a key to exit)</i>",
-	                           gsd_wacom_device_get_name (device));
-	widget = gsd_wacom_osd_window_new (device, message);
+	                           msd_wacom_device_get_name (device));
+	widget = msd_wacom_osd_window_new (device, message);
 	g_free (message);
 
 	g_signal_connect (widget, "key-release-event",
